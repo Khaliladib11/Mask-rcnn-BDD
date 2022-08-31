@@ -10,7 +10,7 @@ from PIL import Image
 from collections import deque
 from tqdm import tqdm
 import json
-from bdd_utils import to_mask, bbox_from_instance_mask, get_colored_mask
+from .bdd_utils import to_mask, bbox_from_instance_mask, get_colored_mask
 import torch
 from torch.utils.data import Dataset
 import torchvision.transforms as transforms
@@ -209,6 +209,11 @@ class BDD(Dataset):
 
         plt.axis('off')
         plt.show()
+
+    # collate function to be used with the dataloader, since the not all the images has the same number of objects
+    @staticmethod
+    def collate_fn(batch):
+        return tuple(zip(*batch))
 
     def __len__(self):
         return len(self.db)
