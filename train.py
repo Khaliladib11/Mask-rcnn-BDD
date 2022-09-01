@@ -1,18 +1,10 @@
 import os
+import yaml
 import torch
 import torch.optim as optim
 import argparse
 from utils import *
 from model.Maskrcnn import get_model
-
-device = torch.device('cpu')
-if torch.cuda.is_available():
-    device = torch.device('cuda')
-
-classes = ['__bgr__', 'person', 'car', 'rider', 'bicycle', 'motorcycle', 'truck', 'bus']
-
-images_dir = "D:/City University of London/MSc Artificial intelligence/Term 3/Project/dataset/bdd100k/images/10k/bdd100k/images/10k"
-masks_dir = "D:/City University of London/MSc Artificial intelligence/Term 3/Project/dataset/bdd100k/labels/ins_seg"
 
 
 
@@ -67,6 +59,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch-size', type=int, default=16, help='total batch size for all GPUs')
     parser.add_argument('--img-size', type=int, default=640, help='train, val image size (pixels)')
+    parser.add_argument('--data', type=str, default="data.yaml", help='data.yaml path')
     parser.add_argument('--checkpoint', type=str, default=None, help='train from checkpoint')
     parser.add_argument('--lr', type=float, default=1e-5, help='learning rate')
     parser.add_argument('--total_epochs', type=int, default=100, help='total_epochs')
@@ -77,6 +70,18 @@ if __name__ == '__main__':
     checkpoint = args.checkpoint
     img_size = args.img_size
     total_epochs = args.total_epochs
+    with open('./data.yaml', 'r') as f:
+        data = yaml.safe_load(f)
+
+    images_dir = data['images']
+    masks_dir = data['masks']
+    classes = data['classes']
+
+    device = torch.device('cpu')
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+
+    print(f"We are using {device}")
 
     train_loader_params = {
         "images_dir": images_dir,

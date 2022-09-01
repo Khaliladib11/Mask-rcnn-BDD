@@ -43,7 +43,7 @@ class BDD(Dataset):
             self.polygon_path = self.masks_dir / Path('polygons/ins_seg_train.json')
         elif self.stage == 'test':
             self.images_dir = self.images_dir / Path('val')
-            self.polygon_path = self.masks_dir / Path('polygons/ins_seg_val.json.json')
+            self.polygon_path = self.masks_dir / Path('polygons/ins_seg_val.json')
 
         self.cls_to_idx, self.idx_to_cls = self.__create_idx()
         self.db = self.__create_db()
