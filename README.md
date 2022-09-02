@@ -1,6 +1,10 @@
 ﻿# Mask-rcnn-BDD
 This project is based on Facebook's research [MaskRCNN Model](https://github.com/facebookresearch/maskrcnn-benchmark). I will use the PyTorch implimentation of maskrcnn to perform insatnce seggmnetation on the [BDD](https://www.bdd100k.com/) dataset.
 
+
+
+![teaser](./docs/images/mask_rcnn_from_paper.png)
+
  ---
  
  ## Dataset
@@ -10,7 +14,7 @@ This project is based on Facebook's research [MaskRCNN Model](https://github.com
  
 ## Project Structure
 ```python
-├─doc  # some documents
+├─docs  # some documents
 ├─dataset 
 │ ├─BDD.py # Dataset class for the data
 │ ├─bdd_utils.py  # file that contains some helper methods
@@ -19,7 +23,7 @@ This project is based on Facebook's research [MaskRCNN Model](https://github.com
 ├─data
 │ ├─images # Images
 │ ├─labels # Labels
-│ ├─data.yaml # some configuration
+├─data.yaml # some configuration
 ├─train.py # training file
 ├─detect.py # detection file
 ├─utils.py # usefull functions
