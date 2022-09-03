@@ -6,6 +6,10 @@ import argparse
 from utils import *
 from model.Maskrcnn import get_model
 
+import wandb
+
+wandb.init(project='MaskRCNN-BDD')
+
 
 
 def train(training_loader,
@@ -41,6 +45,11 @@ def train(training_loader,
 
         train_loss = train_one_epoch(training_loader, model, optimizer, device)
         val_loss = val_one_epoch(validation_loader, model, device)
+
+        wandb.log({
+            'train_loss': train_loss,
+            'val_loss': val_loss
+        })
 
         training_losses.append(train_loss)
         validation_losses.append(val_loss)
@@ -123,6 +132,13 @@ if __name__ == '__main__':
         "path_to_save": path_to_save,
         "checkpoint": checkpoint
     }
+
+    wandb.config = {
+        "learning_rate": lr,
+        "epochs": total_epochs,
+        "batch_size": batch_size
+    }
+
     training_losses, validation_losses = train(**train_params)
 
     export_losses(training_losses, validation_losses, os.path.join(path_to_save, 'losses.csv'))
