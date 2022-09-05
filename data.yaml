@@ -1,6 +1,0 @@
-# train and val data
-images: D:/City University of London/MSc Artificial intelligence/Term 3/Project/dataset/bdd100k/images/10k/bdd100k/images/10k
-masks: D:/City University of London/MSc Artificial intelligence/Term 3/Project/dataset/bdd100k/labels/ins_seg
-
-# class names
-classes: ['__bgr__', 'person', 'car', 'rider', 'bicycle', 'motorcycle', 'truck', 'bus']
