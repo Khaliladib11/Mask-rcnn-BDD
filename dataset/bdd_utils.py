@@ -41,8 +41,10 @@ def bbox_from_instance_mask(mask):
 
     masks = mask == obj_ids[:, None, None]  # split the color-encoded mask into a set of boolean masks.
     boxes = masks_to_boxes(masks)  # get the bounding boxes
-
-    return boxes[0].tolist()
+    if len(boxes) > 0:
+        return boxes[0].tolist()
+    else:
+        return None
 
 
 def get_colored_mask(mask):
