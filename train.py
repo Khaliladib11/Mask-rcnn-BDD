@@ -11,7 +11,6 @@ import wandb
 wandb.init(project='MaskRCNN-BDD')
 
 
-
 def train(training_loader,
           validation_loader,
           model,
@@ -20,6 +19,7 @@ def train(training_loader,
           total_epochs,
           path_to_save,
           checkpoint=None):
+
     print("########################################")
     print("Start Training")
     print("########################################")
@@ -33,12 +33,15 @@ def train(training_loader,
             'optimizer': optimizer,
             'path': checkpoint
         }
-        model, optimizer, last_epoch, training_losses, validation_losses, best_val_loss = load_check_point(**checkpoint_params)
+        model, optimizer, last_epoch, training_losses, validation_losses, best_val_loss = load_check_point(
+            **checkpoint_params)
     else:
         training_losses = []
         validation_losses = []
         best_val_loss = 1000
         last_epoch = 0
+
+    wandb.watch(model, log="all", log_freq=10)
 
     model.to(device)
     for epoch in range(last_epoch, total_epochs):
@@ -47,6 +50,7 @@ def train(training_loader,
         val_loss = val_one_epoch(validation_loader, model, device)
 
         wandb.log({
+            'epoch': epoch,
             'train_loss': train_loss,
             'val_loss': val_loss
         })
