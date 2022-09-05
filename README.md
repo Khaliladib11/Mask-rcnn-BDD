@@ -34,9 +34,18 @@ This project is based on Facebook's research [MaskRCNN Model](https://github.com
 ```python
 pip install -r requirements.txt
 ```
+
+Go to [weights and biases](https://wandb.ai/home) and create a free account.
+
+Open a command line and run:
+```bash
+wandb login [API_KEY]
+```
+
+instead of `[API_KEY]` put your **API KEY**.
+
  ---
- 
- ---
+
 ## Train
 ```python
 python train.py --batch-size 64 --img-size 640 --data 'data/data.yaml' --total_epochs 50
